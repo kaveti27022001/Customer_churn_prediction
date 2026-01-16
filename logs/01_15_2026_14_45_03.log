@@ -1,0 +1,7 @@
+[ 2026-01-15 14:45:03,626 ] root - DEBUG - This is a debug message.
+[ 2026-01-15 14:45:03,626 ] root - INFO - This is an info message.
+[ 2026-01-15 14:45:03,626 ] root - WARNING - This is a warning message.
+[ 2026-01-15 14:45:03,627 ] root - ERROR - This is an error message.
+[ 2026-01-15 14:45:03,627 ] root - CRITICAL - This is a critical message.
+[ 2026-01-15 14:45:03,631 ] root - INFO - unsupported operand type(s) for +: 'int' and 'str'
+[ 2026-01-15 14:45:03,632 ] root - ERROR - Error occurred in python script: [C:\Users\kavet\OneDrive\Desktop\github\demo.py] at line number [17]: unsupported operand type(s) for +: 'int' and 'str'
