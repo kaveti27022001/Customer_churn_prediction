@@ -1,0 +1,9 @@
+[ 2026-01-17 16:18:37,282 ] root - INFO - Starting data validation
+[ 2026-01-17 16:18:37,333 ] root - INFO - Is required column present: [True]
+[ 2026-01-17 16:18:37,334 ] root - INFO - All required columns present in training dataframe: True
+[ 2026-01-17 16:18:37,334 ] root - INFO - Is required column present: [True]
+[ 2026-01-17 16:18:37,335 ] root - INFO - All required columns present in testing dataframe: True
+[ 2026-01-17 16:18:37,339 ] root - INFO - All categorical/int columns present in training dataframe: True
+[ 2026-01-17 16:18:37,340 ] root - INFO - All categorical/int columns present in testing dataframe: True
+[ 2026-01-17 16:18:37,342 ] root - INFO - Data validation artifact created and saved to JSON file.
+[ 2026-01-17 16:18:37,342 ] root - INFO - Data validation artifact: DataValidationArtifact(validation_status=True, message='', validation_report_file_path='artifact\\01_17_2026_16_18_37\\data_validation\\report.yaml')

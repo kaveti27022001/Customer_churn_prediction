@@ -83,7 +83,7 @@ MODEL_EVALUATION_REPORT_FILE_NAME: str = "evaluation_report.yaml"
 MODEL PUSHER related constants
 """
 MODEL_PUSHER_DIR_NAME: str = "model_pusher"
-MODEL_BUCKET_NAME = "customer-churn-model-registry"
+MODEL_BUCKET_NAME = "customer-churn-model-ck"
 MODEL_PUSHER_S3_KEY = "model-registry"
 
 """
