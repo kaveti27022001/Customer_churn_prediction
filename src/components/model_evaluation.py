@@ -6,6 +6,7 @@ from src.constants import TARGET_COLUMN
 from src.logger import logging
 from src.utils.main_utils import load_object
 import sys
+import numpy as np
 import pandas as pd
 from typing import Optional
 from src.entity.s3_estimator import Proj1Estimator
@@ -50,6 +51,22 @@ class ModelEvaluation:
         except Exception as e:
             raise  MyException(e,sys)
         
+    def _clean_data(self, df):
+        """Clean data: handle missing values and convert data types."""
+        logging.info("Cleaning data: handling TotalCharges")
+        
+        # TotalCharges has empty strings ' ' that need to be converted to NaN then filled
+        if 'TotalCharges' in df.columns:
+            # Replace empty strings and whitespace with NaN
+            df['TotalCharges'] = df['TotalCharges'].replace(r'^\s*$', np.nan, regex=True)
+            # Convert to float
+            df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
+            # Fill NaN with median
+            df['TotalCharges'].fillna(df['TotalCharges'].median(), inplace=True)
+            logging.info("TotalCharges cleaned and filled missing values with median")
+        
+        return df
+
     def _map_gender_column(self, df):
         """Map gender column to 0 for Female and 1 for Male."""
         logging.info("Mapping 'gender' column to binary values")
@@ -93,13 +110,20 @@ class ModelEvaluation:
         try:
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
             x, y = test_df.drop(TARGET_COLUMN, axis=1), test_df[TARGET_COLUMN]
+            
+            # Convert target column from 'Yes'/'No' to 1/0
+            y = y.map({'Yes': 1, 'No': 0}).astype(int)
 
             logging.info("Test data loaded and now transforming it for prediction...")
 
+            x = self._clean_data(x)
             x = self._map_gender_column(x)
             x = self._drop_id_column(x)
             x = self._create_dummy_columns(x)
             x = self._rename_columns(x)
+            
+            logging.info(f"Columns after preprocessing: {list(x.columns)}")
+            logging.info(f"TotalCharges present: {'TotalCharges' in x.columns}")
 
             trained_model = load_object(file_path=self.model_trainer_artifact.trained_model_file_path)
             logging.info("Trained model loaded/exists.")
